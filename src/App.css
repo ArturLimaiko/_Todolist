@@ -1,0 +1,45 @@
+.App {
+    padding: 30px;
+    display: flex;
+}
+
+.App > div {
+    margin-right: 50px;
+    background-color: cadetblue;
+    padding: 15px;
+    border-radius: 7%;
+}
+
+.task {
+    font-weight: bold;
+}
+
+.task-done {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.btn-filter,
+.btn-filter-active {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #595757;
+
+}
+
+.btn-filter-active {
+    background-color: #029cf8;
+    color: #342bfa;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px #002d41;
+}
+
+.btns-filter-block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-input-error {
+    border: 2px solid darkred;
+    outline: none;
+}
