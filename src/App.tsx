@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
-import {log} from "util";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -98,14 +97,8 @@ function App() {
     return (
         <div className="App">
             {todolists.map(el => {
-                //закинуть фильтрацию тасок в тодолист> , в tasks закидываем ключи из todolists по скольку они у них одни и теже
+                // //закинуть фильтрацию тасок в тодолист> , в tasks закидываем ключи из todolists по скольку они у них одни и теже
                 let tasksForTodolist = tasks[el.id]
-                if (el.filter === "active") {
-                    tasksForTodolist = tasks[el.id].filter(t => !t.isDone);
-                }
-                if (el.filter === "completed") {
-                    tasksForTodolist = tasks[el.id].filter(t => t.isDone);
-                }
 
                 return (
                     <Todolist
