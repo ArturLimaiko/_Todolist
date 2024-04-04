@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
+import {AddItemForm} from "./AddItemForm";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -39,6 +40,7 @@ function App() {
             {id: v1(), title: "GraphQL", isDone: false},
         ]
     });
+
     //Функция удаления таски
     function removeTask(todolistID: string, taskID: string) {
         // копируем все таски {...tasks , потом взяли ключ [todolistID] , далее тут указываем какие именно таски - 1 или 2 tasks[todolistID1]
@@ -58,14 +60,15 @@ function App() {
     }
 
     //функция статуса чекбокса
-    function changeStatus(todolistID: string,taskId: string, isDone: boolean) {
+    function changeStatus(todolistID: string, taskId: string, isDone: boolean) {
         // let task = tasks.find(t => t.id === taskId);
         // if (task) {
         //     task.isDone = isDone;
         // }
 
-        //берем таски делаем копию объекта{...tasks, добавляем  ключ [todolistID], и берем tasks[todolistID] таски с ключом,далее  нам надо обновить объект, с помощью .mapи обновить статус isDone
-        setTasks({...tasks,[todolistID]: tasks[todolistID].map(el => el.id === taskId? {...el, isDone}:el)});
+        //берем таски делаем копию объекта{...tasks, добавляем  ключ [todolistID], и берем tasks[todolistID] таски с ключом,далее  нам надо обновить объект,
+        // с помощью .map и обновить статус isDone
+        setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskId ? {...el, isDone} : el)});
     }
 
     //Фильтрация тасок
@@ -83,8 +86,22 @@ function App() {
         delete tasks[todolistID]
     }
 
+    const addTodolist = (title: string) => {
+        //для начала генерим айдишки
+        const newTodoListId = v1()
+        //создаем новый тудулист
+        const newTodo: TodoListType= {id: newTodoListId, title, filter: 'all'}
+        //сетаем старый , и добавляем новый
+        setTodolists([...todolists,newTodo])
+        //сетаем старые таски и обращаемся по ключу и кладем новый пустой массив( тасок там нет т.к он новый) [newTodoListId]: []
+        setTasks({...tasks,[newTodoListId]: []})
+    }
+
     return (
         <div className="App">
+            {/*сюда передадим компоненту для добавления новых тасок*/}
+            <AddItemForm callBack={addTodolist}/>
+
             {todolists.map(el => {
                 // //закинуть фильтрацию тасок в тодолист> , в tasks закидываем ключи из todolists по скольку они у них одни и теже
                 let tasksForTodolist = tasks[el.id]
