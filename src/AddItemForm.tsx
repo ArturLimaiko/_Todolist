@@ -1,13 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
-type AddItemFormProps ={
+type AddItemFormProps = {
     callBack: (title: string) => void
 }
 
 export const AddItemForm = (props: AddItemFormProps) => {
-    //сюда переносим стейт состояние инпута
+    // переносим стейт состояние инпута
     let [title, setTitle] = useState("")
-    // сюда перенесем стейт отвечающий за валидацию input
+    // перенесем стейт отвечающий за валидацию input
     let [error, setError] = useState<string | null>(null)
 
     //ф-ция отслеживает введенное значение
@@ -24,8 +24,8 @@ export const AddItemForm = (props: AddItemFormProps) => {
     //функция добавления таски
     const callBack = () => {
         if (title.trim() !== "") {
-                props.callBack(title.trim());
-                setTitle("");
+            props.callBack(title.trim());
+            setTitle("");
         } else {
             setError("Title is required");
         }

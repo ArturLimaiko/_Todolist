@@ -90,12 +90,18 @@ function App() {
         //для начала генерим айдишки
         const newTodoListId = v1()
         //создаем новый тудулист
-        const newTodo: TodoListType= {id: newTodoListId, title, filter: 'all'}
+        const newTodo: TodoListType = {id: newTodoListId, title, filter: 'all'}
         //сетаем старый , и добавляем новый
-        setTodolists([...todolists,newTodo])
+        setTodolists([...todolists, newTodo])
         //сетаем старые таски и обращаемся по ключу и кладем новый пустой массив( тасок там нет т.к он новый) [newTodoListId]: []
-        setTasks({...tasks,[newTodoListId]: []})
+        setTasks({...tasks, [newTodoListId]: []})
     }
+
+    // создаем функцию которая передаст все глобальный стейт
+    const updateTaskTitle = (todolistID: string, taskID: string, newTitle: string) => {
+        setTasks({...tasks, [todolistID]:tasks[todolistID].map(el=>el.id ===taskID ? {...el, title:newTitle} : el)})
+    }
+
 
     return (
         <div className="App">
@@ -119,6 +125,7 @@ function App() {
                         changeTaskStatus={changeStatus}
                         filter={el.filter}
                         removeTodolist={removeTodolist}
+                        updateTaskTitle={updateTaskTitle}
                     />
                 )
             })}
