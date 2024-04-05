@@ -5,14 +5,14 @@ type EditableSpanType = {
     callBack: (newTitle: string) => void
 }
 
-export const EditableSpan = ({oldTitle,callBack}: EditableSpanType) => {
+export const EditableSpan = ({oldTitle, callBack}: EditableSpanType) => {
 
     const [edit, setEdit] = useState(false)
     let [newTitle, setNewTitle] = useState(oldTitle)
 
     const editHandler = () => {
         setEdit(!edit)
-        if(edit) {
+        if (edit) {
             callBack(newTitle)
         }
     }

@@ -19,7 +19,8 @@ type PropsType = {
     changeTaskStatus: (todolistID: string, taskId: string, isDone: boolean) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
-    updateTaskTitle: (todolistID: string, taskID: string,newTitle: string) => void
+    updateTaskTitle: (todolistID: string, taskID: string, newTitle: string) => void
+    updateTodoListTitle: (todolistID: string, newTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -43,15 +44,32 @@ export function Todolist(props: PropsType) {
     const filteredTask = filterForTasks(props.tasks, props.filter);
 
     const addTaskHandler = (newTitle: string) => {
-    props.addTask(props.todolistID,newTitle)
+        props.addTask(props.todolistID, newTitle)
+    }
+
+    // создадим тут функцию с помощью которой докинем два параметра todolistID: string, taskID: string
+    // const updateTaskTitleHandler = ( newTitle: string) => {
+    //     props.updateTaskTitle(props.todolistID, t.id, newTitle)
+    // }
+
+    // функция callBack .newTitle приходит к нам снизу , по этому нужно указать его в параметрах
+    const updateTodoListTitleHandler = (newTitle: string) => {
+        props.updateTodoListTitle(props.todolistID, newTitle)
+    }
+
+    //нужно перенести наверх перед ретурном
+    // создадим тут функцию с помощью которой докинем два параметра todolistID: string, taskID: string
+    const updateTaskTitleHandler = (tID: string,newTitle: string) => {
+        props.updateTaskTitle(props.todolistID, tID, newTitle)
     }
 
     return <div>
         <h3>
+            <EditableSpan oldTitle={props.title} callBack={updateTodoListTitleHandler}/>
             <button onClick={removeTodolistHandler}> - del -</button>
-            {props.title}
+
         </h3>
-        <AddItemForm callBack={addTaskHandler} />
+        <AddItemForm callBack={addTaskHandler}/>
 
         <ul>
             {
@@ -61,14 +79,15 @@ export function Todolist(props: PropsType) {
                         props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
                     }
 
-                    // создадим тут функцию с помощью которой докинем два параметра todolistID: string, taskID: string
-                    const updateTaskTitleHandler = ( newTitle: string) => {
-                        props.updateTaskTitle(props.todolistID, t.id, newTitle)
-                    }
+                    // //нужно перенести наверх перед ретурном
+                    // // создадим тут функцию с помощью которой докинем два параметра todolistID: string, taskID: string
+                    // const updateTaskTitleHandler = (newTitle: string) => {
+                    //     props.updateTaskTitle(props.todolistID, t.id, newTitle)
+                    // }
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox" onChange={onChangeHandler} checked={t.isDone}/>
-                        <EditableSpan oldTitle={t.title} callBack={updateTaskTitleHandler}/>
+                        <EditableSpan oldTitle={t.title} callBack={(newTitle) => updateTaskTitleHandler(t.id,newTitle)}/>
                         <button onClick={onClickHandler}>x</button>
                     </li>
                 })
@@ -76,8 +95,11 @@ export function Todolist(props: PropsType) {
         </ul>
         <div>
             <button className={props.filter === 'all' ? "active-filter" : ""} onClick={onAllClickHandler}>All</button>
-            <button className={props.filter === 'active' ? "active-filter" : ""} onClick={onActiveClickHandler}>Active</button>
-            <button className={props.filter === 'completed' ? "active-filter" : ""} onClick={onCompletedClickHandler}>Completed</button>
+            <button className={props.filter === 'active' ? "active-filter" : ""} onClick={onActiveClickHandler}>Active
+            </button>
+            <button className={props.filter === 'completed' ? "active-filter" : ""}
+                    onClick={onCompletedClickHandler}>Completed
+            </button>
         </div>
     </div>
 }

@@ -97,11 +97,16 @@ function App() {
         setTasks({...tasks, [newTodoListId]: []})
     }
 
-    // создаем функцию которая передаст все глобальный стейт
+    // функция изменения названия таски , и которая передаст все в глобальный стейт
     const updateTaskTitle = (todolistID: string, taskID: string, newTitle: string) => {
         setTasks({...tasks, [todolistID]:tasks[todolistID].map(el=>el.id ===taskID ? {...el, title:newTitle} : el)})
     }
 
+    // функция изменения названия заголовка Todolist и  которая передаст все в глобальный стейт
+    //прокинем ее вниз через пропсы в тудулист
+    const updateTodoListTitle = (todolistID: string, newTitle: string) => {
+        setTodolists(todolists.map(el => el.id === todolistID ? {...el,title:newTitle} : el))
+    }
 
     return (
         <div className="App">
@@ -126,6 +131,7 @@ function App() {
                         filter={el.filter}
                         removeTodolist={removeTodolist}
                         updateTaskTitle={updateTaskTitle}
+                        updateTodoListTitle={updateTodoListTitle}
                     />
                 )
             })}
