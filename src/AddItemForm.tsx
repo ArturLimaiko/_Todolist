@@ -4,17 +4,18 @@ type AddItemFormProps = {
     callBack: (title: string) => void
 }
 
+//создадим универсальную форму, которую будем через колбек передавать , и юзать в тасках или в тудулисте
 export const AddItemForm = (props: AddItemFormProps) => {
-    // переносим стейт состояние инпута
+    // переносим  локальный стейт состояние инпута
     let [title, setTitle] = useState("")
-    // перенесем стейт отвечающий за валидацию input
+    // перенесем локальный стейт отвечающий за валидацию input, показывает или нет ошибку
     let [error, setError] = useState<string | null>(null)
 
-    //ф-ция отслеживает введенное значение
+    //ф-ция отслеживает введенное значение( переносим его т.к нам нужно отслеживать вводимое значение в инпут)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
-    //ф-ция отслеживает нажатие кнопки
+    //ф-ция отслеживает нажатие кнопки, тоже самое- отслеживаем нажатие
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
         if (e.charCode === 13) {

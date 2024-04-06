@@ -3,7 +3,7 @@ import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 
-type TaskType = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
@@ -43,14 +43,11 @@ export function Todolist(props: PropsType) {
     }
     const filteredTask = filterForTasks(props.tasks, props.filter);
 
+    //функция обертка которая принимает только newTitle , и эту обертку передаем дальше как функцию, в AddItemForm
     const addTaskHandler = (newTitle: string) => {
+        //фция принимает в себя тот addTask который пришел из app и в него передает newTitle и props.todolistID
         props.addTask(props.todolistID, newTitle)
     }
-
-    // создадим тут функцию с помощью которой докинем два параметра todolistID: string, taskID: string
-    // const updateTaskTitleHandler = ( newTitle: string) => {
-    //     props.updateTaskTitle(props.todolistID, t.id, newTitle)
-    // }
 
     // функция callBack .newTitle приходит к нам снизу , по этому нужно указать его в параметрах
     const updateTodoListTitleHandler = (newTitle: string) => {
@@ -67,10 +64,8 @@ export function Todolist(props: PropsType) {
         <h3>
             <EditableSpan oldTitle={props.title} callBack={updateTodoListTitleHandler}/>
             <button onClick={removeTodolistHandler}> - del -</button>
-
         </h3>
         <AddItemForm callBack={addTaskHandler}/>
-
         <ul>
             {
                 filteredTask.map(t => {
@@ -78,12 +73,6 @@ export function Todolist(props: PropsType) {
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
                     }
-
-                    // //нужно перенести наверх перед ретурном
-                    // // создадим тут функцию с помощью которой докинем два параметра todolistID: string, taskID: string
-                    // const updateTaskTitleHandler = (newTitle: string) => {
-                    //     props.updateTaskTitle(props.todolistID, t.id, newTitle)
-                    // }
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox" onChange={onChangeHandler} checked={t.isDone}/>

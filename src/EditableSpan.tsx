@@ -6,7 +6,7 @@ type EditableSpanType = {
 }
 
 export const EditableSpan = ({oldTitle, callBack}: EditableSpanType) => {
-
+//тут режим редактирования ( локальный стейт)
     const [edit, setEdit] = useState(false)
     let [newTitle, setNewTitle] = useState(oldTitle)
 

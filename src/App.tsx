@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
+import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
 
@@ -12,9 +12,11 @@ export type TodoListType = {
     filter: FilterValuesType
 }
 
-function App() {
-    // let [filter, setFilter] = useState<FilterValuesType>("all");
+type TaskStateType = {
+    [key: string]: Array<TaskType>
+}
 
+function App() {
     let todolistID1 = v1()
     let todolistID2 = v1()
 
@@ -23,7 +25,7 @@ function App() {
         {id: todolistID2, title: "What to bye", filter: 'active'},
     ])
 
-    let [tasks, setTasks] = useState({
+    let [tasks, setTasks] = useState<TaskStateType>({
         [todolistID1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -61,11 +63,6 @@ function App() {
 
     //функция статуса чекбокса
     function changeStatus(todolistID: string, taskId: string, isDone: boolean) {
-        // let task = tasks.find(t => t.id === taskId);
-        // if (task) {
-        //     task.isDone = isDone;
-        // }
-
         //берем таски делаем копию объекта{...tasks, добавляем  ключ [todolistID], и берем tasks[todolistID] таски с ключом,далее  нам надо обновить объект,
         // с помощью .map и обновить статус isDone
         setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskId ? {...el, isDone} : el)});
@@ -93,7 +90,7 @@ function App() {
         const newTodo: TodoListType = {id: newTodoListId, title, filter: 'all'}
         //сетаем старый , и добавляем новый
         setTodolists([...todolists, newTodo])
-        //сетаем старые таски и обращаемся по ключу и кладем новый пустой массив( тасок там нет т.к он новый) [newTodoListId]: []
+        //сетаем объект старых тасок и обращаемся по ключу[newTodoListId]: ( айдишка в качестве свойства) и кладем новый пустой массив(значение)( тасок там нет т.к он новый) [newTodoListId]: []
         setTasks({...tasks, [newTodoListId]: []})
     }
 
