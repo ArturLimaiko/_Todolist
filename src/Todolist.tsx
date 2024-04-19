@@ -2,6 +2,9 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export type TaskType = {
     id: string
@@ -63,7 +66,9 @@ export function Todolist(props: PropsType) {
     return <div>
         <h3>
             <EditableSpan oldTitle={props.title} callBack={updateTodoListTitleHandler}/>
-            <button onClick={removeTodolistHandler}> - del -</button>
+            <IconButton aria-label="delete" onClick={removeTodolistHandler}>
+                <DeleteIcon />
+            </IconButton>
         </h3>
         <AddItemForm callBack={addTaskHandler}/>
         <ul>
@@ -77,7 +82,9 @@ export function Todolist(props: PropsType) {
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox" onChange={onChangeHandler} checked={t.isDone}/>
                         <EditableSpan oldTitle={t.title} callBack={(newTitle) => updateTaskTitleHandler(t.id,newTitle)}/>
-                        <button onClick={onClickHandler}>x</button>
+                        <IconButton aria-label="delete" onClick={onClickHandler} size="small" >
+                            <DeleteIcon />
+                        </IconButton>
                     </li>
                 })
             }

@@ -4,6 +4,7 @@ import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
 
+
 export type FilterValuesType = "all" | "active" | "completed";
 
 export type TodoListType = {
@@ -75,7 +76,7 @@ function App() {
         setTodolists(todolists.map(el => el.id === todolistID ? {...el, filter: value} : el))
     }
 
-    //удаление таски
+    //удаление todolist
     const removeTodolist = (todolistID: string) => {
         //сетаем - берем все тудулисты, фитром проходимся , и оставляем всех кроме того на котором нажали удалить
         setTodolists(todolists.filter(el => el.id !== todolistID))
