@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
+import TextField from "@mui/material/TextField";
 
 type EditableSpanType = {
     oldTitle: string
@@ -24,7 +25,7 @@ export const EditableSpan = ({oldTitle, callBack}: EditableSpanType) => {
 
     return (
         edit
-            ? <input onBlur={editHandler} value={newTitle} onChange={onChangeHandler} autoFocus/>
+            ? <TextField onBlur={editHandler} value={newTitle} onChange={onChangeHandler} autoFocus size='small'/>
             : <span onDoubleClick={editHandler}>{oldTitle}</span>
     );
 };

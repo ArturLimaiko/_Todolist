@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 type AddItemFormProps = {
     callBack: (title: string) => void
@@ -34,21 +35,27 @@ export const AddItemForm = (props: AddItemFormProps) => {
     }
 
     const stylesButton = {
-        maxWidth: '30px',
-        maxHeight: '30px',
-        minHeight: '30px',
-        minWidth: '30px',
+        maxWidth: '40px',
+        maxHeight: '40px',
+        minHeight: '40px',
+        minWidth: '40px',
     }
 
     return (
         <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
+            <TextField
+                error={!!error}
+                id="outlined-basic"
+                label={error ? 'Title is required' : 'Type something'}
+                variant="outlined"
+                value={title}
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                className={error ? error : "type something"}
+                size="small"
             />
-            <Button onClick={callBack} variant={"contained"} size="small" style={stylesButton}>+</Button>
-            {error && <div className="error-message">{error}</div>}
+            <Button onClick={callBack} variant={"contained"} size="small" sx={stylesButton}>+</Button>
+            {/*{error && <div className="error-message">{error}</div>}*/}
         </div>
     );
 };
