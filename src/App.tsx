@@ -4,7 +4,9 @@ import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
 import {ButtonAppButton} from "./ButtonAppBar/ButtonAppButton";
-
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -98,43 +100,57 @@ function App() {
 
     // функция изменения названия таски , и которая передаст все в глобальный стейт
     const updateTaskTitle = (todolistID: string, taskID: string, newTitle: string) => {
-        setTasks({...tasks, [todolistID]:tasks[todolistID].map(el=>el.id ===taskID ? {...el, title:newTitle} : el)})
+        setTasks({
+            ...tasks,
+            [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
+        })
     }
 
     // функция изменения названия заголовка Todolist и  которая передаст все в глобальный стейт
     //прокинем ее вниз через пропсы в тудулист
     const updateTodoListTitle = (todolistID: string, newTitle: string) => {
-        setTodolists(todolists.map(el => el.id === todolistID ? {...el,title:newTitle} : el))
+        setTodolists(todolists.map(el => el.id === todolistID ? {...el, title: newTitle} : el))
     }
 
     return (
         <div className="App">
             <ButtonAppButton/>
-            {/*сюда передадим компоненту для добавления новых тасок*/}
-            <AddItemForm callBack={addTodolist}/>
+            <Container fixed>
 
-            {todolists.map(el => {
-                // //закинуть фильтрацию тасок в тодолист> , в tasks закидываем ключи из todolists по скольку они у них одни и теже
-                let tasksForTodolist = tasks[el.id]
+                <Grid container style={{margin: '30px'}}>
+                    {/*сюда передадим компоненту для добавления новых тасок*/}
+                    <AddItemForm callBack={addTodolist}/>
+                </Grid>
 
-                return (
-                    <Todolist
-                        //сюда передает 9 параметров   key={el.id} его не надо прокидывать дальше т.к ключ указывается как атрибут по умолчанию (для виртуального DOM).
-                        key={el.id}
-                        todolistID={el.id}
-                        title={el.title}
-                        tasks={tasksForTodolist}
-                        removeTask={removeTask}
-                        changeFilter={changeFilter}
-                        addTask={addTask}
-                        changeTaskStatus={changeStatus}
-                        filter={el.filter}
-                        removeTodolist={removeTodolist}
-                        updateTaskTitle={updateTaskTitle}
-                        updateTodoListTitle={updateTodoListTitle}
-                    />
-                )
-            })}
+                <Grid container spacing={5}>
+                    {todolists.map(el => {
+                        // //закинуть фильтрацию тасок в тодолист> , в tasks закидываем ключи из todolists по скольку они у них одни и теже
+                        let tasksForTodolist = tasks[el.id]
+
+                        return (
+                            <Grid item>
+                                <Paper elevation={8} style={{padding: '20px', backgroundColor: '#cdcdcd'}}>
+                                    <Todolist
+                                        //сюда передает 9 параметров   key={el.id} его не надо прокидывать дальше т.к ключ указывается как атрибут по умолчанию (для виртуального DOM).
+                                        key={el.id}
+                                        todolistID={el.id}
+                                        title={el.title}
+                                        tasks={tasksForTodolist}
+                                        removeTask={removeTask}
+                                        changeFilter={changeFilter}
+                                        addTask={addTask}
+                                        changeTaskStatus={changeStatus}
+                                        filter={el.filter}
+                                        removeTodolist={removeTodolist}
+                                        updateTaskTitle={updateTaskTitle}
+                                        updateTodoListTitle={updateTodoListTitle}
+                                    />
+                                </Paper>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </Container>
         </div>
     );
 }
