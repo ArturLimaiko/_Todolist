@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {addTaskAC, removeTaskAC, changeStatusAC, tasksReducer, updateTaskTitleAC} from "./Reducer/tasksReducer";
+import {changeFilterAC, removeTodolistAC, todoReducer} from "./Reducer/TodoReducer";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -25,7 +26,7 @@ function App() {
     let todolistID1 = v1()
     let todolistID2 = v1()
 
-    const [todolists, setTodolists] = useState<TodoListType[]>([
+    const [todolists, dispatchTodolists] = useReducer(todoReducer,[
         {id: todolistID1, title: "What to learn", filter: 'all'},
         {id: todolistID2, title: "What to bye", filter: 'active'},
     ])
@@ -86,21 +87,24 @@ function App() {
     }
 
 
-    //Фильтрация тудулистов
+    //Фильтрация тудулистов  ON TODOREDUCER
     function changeFilter(todolistID: string, value: FilterValuesType) {
         // объект todolists проходим  с помощью .map и тернарного оператора, по скольку .map и так создает новую КОПИЮ этого объекта
         //{...el, filter:value } это копия нового объекта с копией нового filter:value ключ-значение
-        setTodolists(todolists.map(el => el.id === todolistID ? {...el, filter: value} : el))
+        // setTodolists(todolists.map(el => el.id === todolistID ? {...el, filter: value} : el))
+        dispatchTodolists(changeFilterAC(todolistID,value))
     }
 
-    //удаление todolist
+    //удаление todolist ON TODOREDUCER
     const removeTodolist = (todolistID: string) => {
-        //сетаем - берем все тудулисты, фитром проходимся , и оставляем всех кроме того на котором нажали удалить
-        setTodolists(todolists.filter(el => el.id !== todolistID))
-        //удаляем таски по айди
-        delete tasks[todolistID]
+        // //сетаем - берем все тудулисты, фитром проходимся , и оставляем всех кроме того на котором нажали удалить
+        // setTodolists(todolists.filter(el => el.id !== todolistID))
+        // //удаляем таски по айди
+        // delete tasks[todolistID]
+        dispatchTodolists(removeTodolistAC(todolistID))
     }
 
+    //добавление todolist
     const addTodolist = (title: string) => {
         // //для начала генерим айдишки
         // const newTodoListId = v1()
@@ -115,7 +119,7 @@ function App() {
     // функция изменения названия заголовка Todolist и  которая передаст все в глобальный стейт
     //прокинем ее вниз через пропсы в тудулист
     const updateTodoListTitle = (todolistID: string, newTitle: string) => {
-        setTodolists(todolists.map(el => el.id === todolistID ? {...el, title: newTitle} : el))
+        // setTodolists(todolists.map(el => el.id === todolistID ? {...el, title: newTitle} : el))
     }
 
     return (
