@@ -8,7 +8,13 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {addTaskAC, removeTaskAC, changeStatusAC, tasksReducer, updateTaskTitleAC} from "./Reducer/tasksReducer";
-import {changeFilterAC, removeTodolistAC, todoReducer} from "./Reducer/TodoReducer";
+import {
+    addTodolistAC,
+    changeFilterAC,
+    removeTodolistAC,
+    todoReducer,
+    updateTodoListTitleAC
+} from "./Reducer/TodoReducer";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -79,9 +85,7 @@ function App() {
 
     // функция изменения названия таски , и которая передаст все в глобальный стейт ON REDUCER
     const updateTaskTitle = (todolistID: string, taskID: string, newTitle: string) => {
-        // setTasks({
-        //     ...tasks,
-        //     [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
+        // setTasks({...tasks,[todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
         // })
         dispatchTasks(updateTaskTitleAC(todolistID,taskID,newTitle))
     }
@@ -114,12 +118,14 @@ function App() {
         // setTodolists([...todolists, newTodo])
         // //сетаем объект старых тасок и обращаемся по ключу[newTodoListId]: ( айдишка в качестве свойства) и кладем новый пустой массив(значение)( тасок там нет т.к он новый) [newTodoListId]: []
         // setTasks({...tasks, [newTodoListId]: []})
+        dispatchTodolists(addTodolistAC(title))
     }
 
     // функция изменения названия заголовка Todolist и  которая передаст все в глобальный стейт
     //прокинем ее вниз через пропсы в тудулист
     const updateTodoListTitle = (todolistID: string, newTitle: string) => {
         // setTodolists(todolists.map(el => el.id === todolistID ? {...el, title: newTitle} : el))
+        dispatchTodolists(updateTodoListTitleAC(todolistID, newTitle))
     }
 
     return (
