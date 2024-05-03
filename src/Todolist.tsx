@@ -1,12 +1,10 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import {ButtonAppButton} from "./ButtonAppBar/ButtonAppButton";
 import {SuperCheckboxApp} from "./Checkbox/SuperCheckbox";
 
 export type TaskType = {
@@ -71,7 +69,6 @@ export function Todolist(props: PropsType) {
     }
 
     return <div>
-
         <h3>
             <EditableSpan oldTitle={props.title} callBack={updateTodoListTitleHandler}/>
             <IconButton aria-label="delete" onClick={removeTodolistHandler}>
@@ -83,12 +80,8 @@ export function Todolist(props: PropsType) {
             {
                 filteredTask.map(t => {
                     const onClickHandler = () => props.removeTask(props.todolistID, t.id)
-                    {/* вынести функцию над ретурном*/
-                    }
-
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                        {/*Вынести чекбокс в универсальную компоненту которая будет использовать material ui*/}
                         <SuperCheckboxApp onChange={(isDone) => onChangeHandler(t.id, isDone)} checked={t.isDone}/>
                         <EditableSpan oldTitle={t.title}
                                       callBack={(newTitle) => updateTaskTitleHandler(t.id, newTitle)}/>
