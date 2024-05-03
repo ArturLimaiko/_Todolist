@@ -54,7 +54,7 @@ function App() {
             {id: v1(), title: "GraphQL", isDone: false},
         ]
     });
-
+    //TASKS
     //Функция удаления таски ON REDUCER
     function removeTask(todolistID: string, taskID: string) {
         // копируем все таски {...tasks , потом взяли ключ [todolistID] , далее тут указываем какие именно таски - 1 или 2 tasks[todolistID1]
@@ -90,7 +90,7 @@ function App() {
         dispatchTasks(updateTaskTitleAC(todolistID,taskID,newTitle))
     }
 
-
+    //TODOLISTS
     //Фильтрация тудулистов  ON TODOREDUCER
     function changeFilter(todolistID: string, value: FilterValuesType) {
         // объект todolists проходим  с помощью .map и тернарного оператора, по скольку .map и так создает новую КОПИЮ этого объекта
@@ -110,15 +110,16 @@ function App() {
 
     //добавление todolist
     const addTodolist = (title: string) => {
-        // //для начала генерим айдишки
-        // const newTodoListId = v1()
-        // //создаем новый тудулист
+        // // //для начала генерим айдишки
+        const newTodoListId = v1()
+        // // //создаем новый тудулист
         // const newTodo: TodoListType = {id: newTodoListId, title, filter: 'all'}
-        // //сетаем старый , и добавляем новый
+        // // //сетаем старый , и добавляем новый
         // setTodolists([...todolists, newTodo])
-        // //сетаем объект старых тасок и обращаемся по ключу[newTodoListId]: ( айдишка в качестве свойства) и кладем новый пустой массив(значение)( тасок там нет т.к он новый) [newTodoListId]: []
+        // // //сетаем объект старых тасок и обращаемся по ключу[newTodoListId]: ( айдишка в качестве свойства) и кладем новый пустой массив(значение)( тасок там нет т.к он новый) [newTodoListId]: []
         // setTasks({...tasks, [newTodoListId]: []})
-        dispatchTodolists(addTodolistAC(title))
+        dispatchTodolists(addTodolistAC(title,newTodoListId))
+        dispatchTasks(addTodolistAC(title,newTodoListId))
     }
 
     // функция изменения названия заголовка Todolist и  которая передаст все в глобальный стейт
@@ -160,6 +161,7 @@ function App() {
                                         removeTodolist={removeTodolist}
                                         updateTaskTitle={updateTaskTitle}
                                         updateTodoListTitle={updateTodoListTitle}
+                                        onChangeHandler={onChangeHandler}
                                     />
                                 </Paper>
                             </Grid>

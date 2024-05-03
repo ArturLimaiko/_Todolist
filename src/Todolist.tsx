@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import {ButtonAppButton} from "./ButtonAppBar/ButtonAppButton";
+import {CheckboxApp, SuperCheckboxApp} from "./Checkbox/SuperCheckbox";
 
 export type TaskType = {
     id: string
@@ -26,6 +27,7 @@ type PropsType = {
     removeTodolist: (todolistID: string) => void
     updateTaskTitle: (todolistID: string, taskID: string, newTitle: string) => void
     updateTodoListTitle: (todolistID: string, newTitle: string) => void
+    onChangeHandler: () => void
 }
 
 export function Todolist(props: PropsType) {
@@ -65,6 +67,10 @@ export function Todolist(props: PropsType) {
         props.updateTaskTitle(props.todolistID, tID, newTitle)
     }
 
+    // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
+    // }
+
     return <div>
 
         <h3>
@@ -78,12 +84,12 @@ export function Todolist(props: PropsType) {
             {
                 filteredTask.map(t => {
                     const onClickHandler = () => props.removeTask(props.todolistID, t.id)
-                    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
-                    }
+                    {/* вынести функцию над ретурном*/}
+
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                        <Checkbox  onChange={onChangeHandler} checked={t.isDone}/>
+                        {/*Вынести чекбокс в универсальную компоненту которая будет использовать material ui*/}
+                        <SuperCheckboxApp onChange={onChangeHandler} checked={t.isDone}/>
                         <EditableSpan oldTitle={t.title}
                                       callBack={(newTitle) => updateTaskTitleHandler(t.id, newTitle)}/>
                         <IconButton aria-label="delete" onClick={onClickHandler} size="small">
