@@ -27,7 +27,6 @@ type PropsType = {
     removeTodolist: (todolistID: string) => void
     updateTaskTitle: (todolistID: string, taskID: string, newTitle: string) => void
     updateTodoListTitle: (todolistID: string, newTitle: string) => void
-    onChangeHandler: () => void
 }
 
 export function Todolist(props: PropsType) {
@@ -90,7 +89,7 @@ export function Todolist(props: PropsType) {
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         {/*Вынести чекбокс в универсальную компоненту которая будет использовать material ui*/}
-                        <SuperCheckboxApp onChange={(isDone)=> onChangeHandler(t.id, isDone)} checked={t.isDone}/>
+                        <SuperCheckboxApp onChange={(isDone) => onChangeHandler(t.id, isDone)} checked={t.isDone}/>
                         <EditableSpan oldTitle={t.title}
                                       callBack={(newTitle) => updateTaskTitleHandler(t.id, newTitle)}/>
                         <IconButton aria-label="delete" onClick={onClickHandler} size="small">

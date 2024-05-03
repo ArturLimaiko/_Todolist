@@ -161,7 +161,6 @@ function App() {
                                         removeTodolist={removeTodolist}
                                         updateTaskTitle={updateTaskTitle}
                                         updateTodoListTitle={updateTodoListTitle}
-                                        onChangeHandler={onChangeHandler}
                                     />
                                 </Paper>
                             </Grid>

@@ -15,7 +15,7 @@ export const SuperCheckboxApp = ({onChange, checked}: CheckboxAppType) => {
 
     return (
         <div>
-            <Checkbox size={"small"} sx={{color: green}} onChange={onChangeHandler} checked={checked}/>
+            <Checkbox sx={{color: green}} onChange={onChangeHandler} checked={checked}/>
         </div>
     );
 };
