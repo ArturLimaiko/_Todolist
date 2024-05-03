@@ -2,6 +2,7 @@
 .App {
   /*padding: 30px;*/
   /*display: flex;*/
+  background-color: gray;
 }
 
 /*.App > div {*/
@@ -18,6 +19,18 @@
 
 .active-filter {
   background-color: aquamarine;
+}
+
+ul {
+  margin:15px 0;
+  padding:0;
+
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap:20px
 }
 
 .is-done {
