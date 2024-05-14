@@ -7,7 +7,7 @@ import {ButtonAppButton} from "./ButtonAppBar/ButtonAppButton";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {addTaskAC, removeTaskAC, changeStatusAC, tasksReducer, updateTaskTitleAC} from "./Reducer/tasksReducer";
+import {addTaskAC, removeTaskAC, changeTaskStatusAC, tasksReducer, updateTaskTitleAC} from "./Reducer/tasksReducer";
 import {
     addTodolistAC,
     changeFilterAC,
@@ -38,6 +38,7 @@ function App() {
     ])
 
     let [tasks, dispatchTasks] = useReducer(tasksReducer,{
+        // ключ [todolistID1] а значение свойства массив объектов типа TaskType
         [todolistID1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -76,11 +77,11 @@ function App() {
     }
 
     //функция статуса чекбокса ON REDUCER
-    function changeStatus(todolistID: string, taskId: string, isDone: boolean) {
+    function changeTaskStatus(taskId: string, isDone: boolean, todolistID: string) {
         //берем таски делаем копию объекта{...tasks, добавляем  ключ [todolistID], и берем tasks[todolistID] таски с ключом,далее  нам надо обновить объект,
         // с помощью .map и обновить статус isDone
         // setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskId ? {...el, isDone} : el)});
-        dispatchTasks(changeStatusAC(todolistID,taskId,isDone ))
+        dispatchTasks(changeTaskStatusAC(taskId,isDone,todolistID ))
     }
 
     // функция изменения названия таски , и которая передаст все в глобальный стейт ON REDUCER
@@ -156,7 +157,7 @@ function App() {
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
-                                        changeTaskStatus={changeStatus}
+                                        changeTaskStatus={changeTaskStatus}
                                         filter={el.filter}
                                         removeTodolist={removeTodolist}
                                         updateTaskTitle={updateTaskTitle}

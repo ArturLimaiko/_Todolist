@@ -20,7 +20,7 @@ type PropsType = {
     removeTask: (todolistID: string, taskId: string) => void
     changeFilter: (todolistID: string, value: FilterValuesType) => void
     addTask: (todolistID: string, title: string) => void
-    changeTaskStatus: (todolistID: string, taskId: string, isDone: boolean) => void
+    changeTaskStatus: (taskId: string, isDone: boolean, todolistID: string) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
     updateTaskTitle: (todolistID: string, taskID: string, newTitle: string) => void
@@ -65,7 +65,7 @@ export function Todolist(props: PropsType) {
     }
 
     const onChangeHandler = (taskId: string, isDone: boolean) => {
-        props.changeTaskStatus(props.todolistID, taskId,isDone)
+        props.changeTaskStatus(taskId,isDone, props.todolistID)
     }
 
     return <div>
