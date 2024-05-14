@@ -1,8 +1,9 @@
 import {addTodolistAC, changeFilterAC, removeTodolistAC, todoReducer, updateTodoListTitleAC} from './TodoReducer'
 import { v1 } from 'uuid'
-import {FilterValuesType, TodoListType} from '../App'
+import {FilterValuesType, TaskStateType, TodoListType} from '../App'
+import {tasksReducer} from "./tasksReducer";
 
-//removetodo
+//removeTodo
 test('correct todolist should be removed', () => {
     let todolistId1 = v1()
     let todolistId2 = v1()
@@ -107,4 +108,34 @@ test('correct filter of todolist should be changed', () => {
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe(newFilter)
 
+})
+
+//
+test('new array should be added when new todolist is added', () => {
+    const startState: TaskStateType  = {
+        'todolistId1': [
+            {id: '1', title: 'CSS', isDone: false},
+            {id: '2', title: 'JS', isDone: true},
+            {id: '3', title: 'React', isDone: false}
+        ],
+        'todolistId2': [
+            {id: '1', title: 'bread', isDone: false},
+            {id: '2', title: 'milk', isDone: true},
+            {id: '3', title: 'tea', isDone: false}
+        ]
+    }
+
+    const action = addTodolistAC('new todolist',todolistID)
+
+    const endState = tasksReducer(startState, action)
+
+
+    const keys = Object.keys(endState)
+    const newKey = keys.find(k => k != 'todolistId1' && k != 'todolistId2')
+    if (!newKey) {
+        throw Error('new key should be added')
+    }
+
+    expect(keys.length).toBe(3)
+    expect(endState[newKey]).toEqual([])
 })

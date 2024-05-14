@@ -1,4 +1,4 @@
-import { v1 } from "uuid";
+import {v1} from "uuid";
 import {FilterValuesType, TodoListType} from "../App";
 
 export const todoReducer = (state: TodoListType[], action: TodoReducerType): TodoListType[] => {
@@ -13,7 +13,7 @@ export const todoReducer = (state: TodoListType[], action: TodoReducerType): Tod
             // //для начала генерим айдишки
             // const newTodoListId = v1()
             // //создаем новый тудулист
-            const newTodo: TodoListType = {id:action.payload.todolistID, title: action.payload.title, filter: 'all'}
+            const newTodo: TodoListType = {id: action.payload.todolistID, title: action.payload.title, filter: 'all'}
             // //сетаем старый , и добавляем новый
             // setTodolists([...todolists, newTodo])
             // setTasks({...tasks, [newTodoListId]: []})
@@ -21,22 +21,21 @@ export const todoReducer = (state: TodoListType[], action: TodoReducerType): Tod
         }
         case 'UPDATE-TODOLIST-TITLE': {
             // setTodolists(todolists.map(el => el.id === todolistID ? {...el, title: newTitle} : el))
-            return state.map( t => t.id === action.payload.todolistID ? {...t, title: action.payload.newTitle}: t)
+            return state.map(t => t.id === action.payload.todolistID ? {...t, title: action.payload.newTitle} : t)
         }
         case 'CHANGE-FILTER-TODO': {
-            return state.map( f => f.id === action.payload.todolistID ? {...f, filter: action.payload.value}: f)
+            return state.map(f => f.id === action.payload.todolistID ? {...f, filter: action.payload.value} : f)
         }
-        default: return state
+        default:
+            return state
     }
 }
 
-
 //общая типизация
-type TodoReducerType = RemoveTodolistAC | addTodolistAC | updateTodoListTitleACType | changeFilterACType
-
+type TodoReducerType = RemoveTodolistACType | addTodolistACType | updateTodoListTitleACType | changeFilterACType
 
 //Удаление todolist
-type RemoveTodolistAC = ReturnType<typeof removeTodolistAC>
+type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
 export const removeTodolistAC = (todolistID: string) => {
 
     return {
@@ -46,8 +45,8 @@ export const removeTodolistAC = (todolistID: string) => {
 }
 
 //добавление todolist
-export type addTodolistAC = ReturnType<typeof addTodolistAC>
-export const addTodolistAC = (title: string,todolistID: string) => {
+export type addTodolistACType = ReturnType<typeof addTodolistAC>
+export const addTodolistAC = (title: string, todolistID: string) => {
     return {
         type: 'ADD-TODO',
         payload: {title, todolistID}
@@ -64,14 +63,13 @@ export const updateTodoListTitleAC = (todolistID: string, newTitle: string) => {
 }
 
 //Фильтрация тудулистов
- type changeFilterACType = ReturnType<typeof changeFilterAC>
-export const changeFilterAC = (todolistID: string,value:FilterValuesType) => {
+type changeFilterACType = ReturnType<typeof changeFilterAC>
+export const changeFilterAC = (todolistID: string, value: FilterValuesType) => {
     return {
         type: 'CHANGE-FILTER-TODO',
         payload: {todolistID, value}
     } as const
 }
-
 
 
 //общая типизация
