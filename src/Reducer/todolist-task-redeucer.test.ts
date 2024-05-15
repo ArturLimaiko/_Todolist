@@ -13,7 +13,7 @@ test('ids should be equals', () => {
 
     // endTasksState тут лежит объект , с 1им свойством , потому что пустой. ключ - action.todolistID , значение - пустой массив []
     const endTasksState = tasksReducer(startTasksState, action)
-    // тут будет массив 1 [] , типа объект  {} внутри лежат {id, title, filter}
+    // тут будет массив [] с 1 элементом ,  объект {} (типаTodoListType[]) внутри лежат {id, title, filter}
     const endTodolistsState = todoReducer(startTodolistsState, action)
 
     //массив из объекта с 1 элементом( значение id будет - sting)

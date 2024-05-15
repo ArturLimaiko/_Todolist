@@ -96,8 +96,9 @@ test('title of specified task should be changed', () => {
 
     const action = updateTaskTitleAC('2', 'Chocolate', 'todolistId2')
 
+    //попадет объект {} и у него будет 1 свойство
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].title).toBe('Chocolate')
-    expect(endState['todolistId1'][2].title).toBe('React')
+    expect(endState['todolistId1'][1].title).toBe('JS')
 })

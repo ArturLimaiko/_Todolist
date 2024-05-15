@@ -6,7 +6,7 @@ export const todoReducer = (state: TodoListType[], action: TodoReducerType): Tod
             // //сетаем - берем все тудулисты, фитром проходимся , и оставляем всех кроме того на котором нажали удалить
             // setTodolists(todolists.filter(el => el.id !== todolistID))
             // delete tasks[todolistID]
-            return state.filter(el => el.id !== action.payload.todolistID)
+            return state.filter(el => el.id !== action.todolistID)
         }
         case 'ADD-TODO': {
             // //для начала генерим айдишки
@@ -36,11 +36,7 @@ export type TodoReducerType = RemoveTodolistACType | addTodolistACType | updateT
 //Удаление todolist
 export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
 export const removeTodolistAC = (todolistID: string) => {
-
-    return {
-        type: 'REMOVE-TODO',
-        payload: {todolistID}
-    } as const
+    return {type: 'REMOVE-TODO',todolistID} as const
 }
 
 //добавление todolist
