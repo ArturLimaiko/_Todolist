@@ -122,14 +122,15 @@ test('new array should be added when new todolist is added', () => {
             {id: '1', title: 'bread', isDone: false},
             {id: '2', title: 'milk', isDone: true},
             {id: '3', title: 'tea', isDone: false}
-        ]
+        ],
     }
 
-    const action = addTodolistAC('new todolist',todolistID)
+    const action = addTodolistAC('new todolist', 'todolistId1')
 
     const endState = tasksReducer(startState, action)
 
 
+    // Object.keys - вернет ключи нашего объекта в виде массивов - строковые значения
     const keys = Object.keys(endState)
     const newKey = keys.find(k => k != 'todolistId1' && k != 'todolistId2')
     if (!newKey) {

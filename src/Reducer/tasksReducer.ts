@@ -30,7 +30,7 @@ export const tasksReducer = (state: TaskStateType, action: tasksReducerType): Ta
             }
         }
         case 'ADD-TODO': {
-            return {...state, [action.payload.todolistID]: []}
+            return {...state, [action.todolistID]: []}
         }
         // case 'UPDATE-TASK-TITLE': {
         //     // setTasks({
