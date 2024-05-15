@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 import {FilterValuesType, TodoListType} from "../App";
 
 export const todoReducer = (state: TodoListType[], action: TodoReducerType): TodoListType[] => {
@@ -13,10 +12,10 @@ export const todoReducer = (state: TodoListType[], action: TodoReducerType): Tod
             // //для начала генерим айдишки
             // const newTodoListId = v1()
             // //создаем новый тудулист
-            const newTodo: TodoListType = {id: action.todolistID, title: action.title, filter: 'all'}
             // //сетаем старый , и добавляем новый
             // setTodolists([...todolists, newTodo])
             // setTasks({...tasks, [newTodoListId]: []})
+            const newTodo: TodoListType = {id: action.todolistID, title: action.title, filter: 'all'}
             return [...state, newTodo]
         }
         case 'UPDATE-TODOLIST-TITLE': {
@@ -46,8 +45,8 @@ export const removeTodolistAC = (todolistID: string) => {
 
 //добавление todolist
 export type addTodolistACType = ReturnType<typeof addTodolistAC>
-export const addTodolistAC = (title: string, todolistID: string) => {
-    return {type: 'ADD-TODO',title, todolistID: todolistID} as const
+export const addTodolistAC = (title: string,todolistID:string ) => {
+    return {type: 'ADD-TODO',title, todolistID} as const
 }
 
 //обновление todolistTitle

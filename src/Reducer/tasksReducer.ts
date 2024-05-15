@@ -1,5 +1,5 @@
 import {TaskStateType} from "../App";
-import {v1} from "uuid";
+// import {v1} from "uuid";
 import {addTodolistACType} from "./TodoReducer";
 
 export const tasksReducer = (state: TaskStateType, action: tasksReducerType): TaskStateType => {
@@ -17,7 +17,7 @@ export const tasksReducer = (state: TaskStateType, action: tasksReducerType): Ta
             // setTasks({...tasks, [todolistID]: [...tasks[todolistID], newTask]})
             // let newTasks = [task, ...tasks];
             // setTasks(newTasks);
-            let newTask = {id: v1(), title: action.title, isDone: false};
+            let newTask = {id: action.todolistID, title: action.title, isDone: false};
             return {
                 ...state,
                 [action.todolistID]: [newTask, ...state[action.todolistID]]

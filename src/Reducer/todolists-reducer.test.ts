@@ -1,5 +1,5 @@
 import {addTodolistAC, changeFilterAC, removeTodolistAC, todoReducer, updateTodoListTitleAC} from './TodoReducer'
-import { v1 } from 'uuid'
+import {v1} from 'uuid'
 import {FilterValuesType, TaskStateType, TodoListType} from '../App'
 import {tasksReducer} from "./tasksReducer";
 
@@ -10,8 +10,8 @@ test('correct todolist should be removed', () => {
 
     // 1. Стартовый state
     const startState: TodoListType[] = [
-        { id: todolistId1, title: 'What to learn', filter: 'all' },
-        { id: todolistId2, title: 'What to buy', filter: 'all' },
+        {id: todolistId1, title: 'What to learn', filter: 'all'},
+        {id: todolistId2, title: 'What to buy', filter: 'all'},
     ]
 
     // 2. Действие
@@ -22,7 +22,7 @@ test('correct todolist should be removed', () => {
         },
     }
     //const endState = todolistsReducer(startState, action)
-    const endState = todoReducer(startState, removeTodolistAC(todolistId1) )
+    const endState = todoReducer(startState, removeTodolistAC(todolistId1))
 
     // 3. Проверяем, что наши действия (изменения state) соответствуют ожиданию
     // в массиве останется один тудулист
@@ -40,8 +40,8 @@ test('correct todolist should be added', () => {
     let newTodolistTitle = 'New Todolist'
 
     const startState: TodoListType[] = [
-        { id: todolistId1, title: 'What to learn', filter: 'all' },
-        { id: todolistId2, title: 'What to buy', filter: 'all' },
+        {id: todolistId1, title: 'What to learn', filter: 'all'},
+        {id: todolistId2, title: 'What to buy', filter: 'all'},
     ]
 
     const action = {
@@ -50,7 +50,7 @@ test('correct todolist should be added', () => {
             title: 'New Todolist',
         },
     }
-    const endState = todoReducer(startState, addTodolistAC(newTodolistTitle,todolistID))
+    const endState = todoReducer(startState, addTodolistAC(newTodolistTitle, todolistID))
 
     expect(endState.length).toBe(3)
     expect(endState[2].title).toBe(action.payload.title)
@@ -65,8 +65,8 @@ test('correct todolist should be change its name', () => {
     let newTodolistTitle = 'New Todolist'
 
     const startState: TodoListType[] = [
-        { id: todolistId1, title: 'What to learn', filter: 'all' },
-        { id: todolistId2, title: 'What to buy', filter: 'all' },
+        {id: todolistId1, title: 'What to learn', filter: 'all'},
+        {id: todolistId2, title: 'What to buy', filter: 'all'},
     ]
 
     const action = {
@@ -76,7 +76,7 @@ test('correct todolist should be change its name', () => {
             title: 'New Todolist',
         },
     }
-    const endState = todoReducer(startState, updateTodoListTitleAC(newTodolistTitle,todolistID))
+    const endState = todoReducer(startState, updateTodoListTitleAC(newTodolistTitle, todolistID))
 
     expect(endState[0].title).toBe('What to learn')
     expect(endState[1].title).toBe('What to buy')
@@ -89,11 +89,11 @@ test('correct filter of todolist should be changed', () => {
     let todolistId2 = v1()
 
     let todolistID = v1()
-    let newFilter : FilterValuesType = 'completed'
+    let newFilter: FilterValuesType = 'completed'
 
     const startState: TodoListType[] = [
-        { id: todolistId1, title: 'What to learn', filter: 'all' },
-        { id: todolistId2, title: 'What to buy', filter: 'completed' },
+        {id: todolistId1, title: 'What to learn', filter: 'all'},
+        {id: todolistId2, title: 'What to buy', filter: 'completed'},
     ]
 
     const action = {
@@ -103,7 +103,7 @@ test('correct filter of todolist should be changed', () => {
             value: newFilter,
         },
     }
-    const endState = todoReducer(startState,changeFilterAC (todolistID,newFilter))
+    const endState = todoReducer(startState, changeFilterAC(todolistID, newFilter))
 
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe(newFilter)
@@ -112,7 +112,7 @@ test('correct filter of todolist should be changed', () => {
 
 //
 test('new array should be added when new todolist is added', () => {
-    const startState: TaskStateType  = {
+    const startState: TaskStateType = {
         'todolistId1': [
             {id: '1', title: 'CSS', isDone: false},
             {id: '2', title: 'JS', isDone: true},
@@ -125,18 +125,20 @@ test('new array should be added when new todolist is added', () => {
         ],
     }
 
-    const action = addTodolistAC('new todolist', 'todolistId1')
+    const action = addTodolistAC('new todolist', 'todolistID')
 
     const endState = tasksReducer(startState, action)
 
 
     // Object.keys - вернет ключи нашего объекта в виде массивов - строковые значения
     const keys = Object.keys(endState)
+    // тут ищем новый ключ который должен отличаться от тех которые были. если не нашли - бросаем ошибку
     const newKey = keys.find(k => k != 'todolistId1' && k != 'todolistId2')
     if (!newKey) {
         throw Error('new key should be added')
     }
-
+    //проверяем длинну массива ключа
     expect(keys.length).toBe(3)
+    //значение нового ключа соответствует новому массиву
     expect(endState[newKey]).toEqual([])
 })

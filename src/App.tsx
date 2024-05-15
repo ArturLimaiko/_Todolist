@@ -111,13 +111,13 @@ function App() {
 
     //добавление todolist
     const addTodolist = (title: string) => {
-        // // //для начала генерим айдишки
+        // для начала генерим айдишки
         const newTodoListId = v1()
-        // // //создаем новый тудулист
+        // создаем новый тудулист
         // const newTodo: TodoListType = {id: newTodoListId, title, filter: 'all'}
-        // // //сетаем старый , и добавляем новый
+        // сетаем старый , и добавляем новый
         // setTodolists([...todolists, newTodo])
-        // // //сетаем объект старых тасок и обращаемся по ключу[newTodoListId]: ( айдишка в качестве свойства) и кладем новый пустой массив(значение)( тасок там нет т.к он новый) [newTodoListId]: []
+        // сетаем объект старых тасок и обращаемся по ключу[newTodoListId]: ( айдишка в качестве свойства) и кладем новый пустой массив(значение)( тасок там нет т.к он новый) [newTodoListId]: []
         // setTasks({...tasks, [newTodoListId]: []})
         dispatchTodolists(addTodolistAC(title,newTodoListId))
         dispatchTasks(addTodolistAC(title,newTodoListId))
