@@ -1,6 +1,6 @@
 import {tasksReducer} from "./tasksReducer";
 import {addTodolistAC, todoReducer} from "./TodoReducer";
-import {TaskStateType, TodoListType} from "../App";
+import {TaskStateType, TodoListType} from "../AppWithReducers";
 
 test('ids should be equals', () => {
     //стартовое значение тасок - пустой объект

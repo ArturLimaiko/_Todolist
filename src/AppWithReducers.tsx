@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
@@ -7,7 +7,7 @@ import {ButtonAppButton} from "./ButtonAppBar/ButtonAppButton";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {addTaskAC, removeTaskAC, changeTaskStatusAC, tasksReducer, updateTaskTitleAC} from "./Reducer/tasksReducer";
+import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTaskTitleAC} from "./Reducer/tasksReducer";
 import {
     addTodolistAC,
     changeFilterAC,
@@ -28,7 +28,7 @@ export type TaskStateType = {
     [key: string]: TaskType[]
 }
 
-function App() {
+export function AppWithReducers() {
     let todolistID1 = v1()
     let todolistID2 = v1()
 
@@ -107,11 +107,12 @@ function App() {
         // //удаляем таски по айди
         // delete tasks[todolistID]
         dispatchTodolists(removeTodolistAC(todolistID))
+        dispatchTasks(removeTodolistAC(todolistID))
     }
 
     //добавление todolist
     const addTodolist = (title: string) => {
-        // для начала генерим айдишки
+        // для начала генерим айдишки - именно тут потому что она должна быть ОБЩАЯ!
         const newTodoListId = v1()
         // создаем новый тудулист
         // const newTodo: TodoListType = {id: newTodoListId, title, filter: 'all'}
@@ -173,4 +174,4 @@ function App() {
     );
 }
 
-export default App;
+

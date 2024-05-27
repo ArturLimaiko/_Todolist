@@ -1,4 +1,4 @@
-import {FilterValuesType, TodoListType} from "../App";
+import {FilterValuesType, TodoListType} from "../AppWithReducers";
 
 export const todoReducer = (state: TodoListType[], action: TodoReducerType): TodoListType[] => {
     switch (action.type) {
