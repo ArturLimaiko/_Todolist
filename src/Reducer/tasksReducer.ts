@@ -67,11 +67,11 @@ export const tasksReducer = (state: TaskStateType, action: tasksReducerType): Ta
 }
 
 //по деструктуризации
-let object = {a: 1, b: 2, c: 3}
-let {b, ...newObject} = object
-newObject = {
-    a: 1, c: 3
-}
+// let object = {a: 1, b: 2, c: 3}
+// let {b, ...newObject} = object
+// newObject = {
+//     a: 1, c: 3
+// }
 
 //общая типизация
 export type tasksReducerType =

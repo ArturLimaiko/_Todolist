@@ -14,22 +14,19 @@ root.render(<AppWithReducers />);
 serviceWorker.unregister();
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// 1 создадим отдельный файлик для Redux AppWithRedux, переименуем функцию так же
+// 2 забросим в index tsx
+// 3 Организуем файлик store.ts там у нас у будет все храниться
+// 4 внутри создадим функцию rootReducer = combineReducers({ внутри наши tasksReducer, todoReducer - ключи задаем любые - можно например tasks , todolists})
+// 5 создадим непосредственно export const store = legacy_createStore(RootReducer);
+// 6 тип ( AppRootStateType)определим через ReturnType
+// ниже пропишем еще такую фичу
+// //"ts-ignore
+// window.store = store - в принципе не нужна просто в консоли можем посмотреть изменение стейта
+// после получения в параметрах RootReducer
+// обернем компоненту нашу в Provider  и даем обязательный объект store
+// в taskReducer создадим initialTasksState:TaskStateType = {}, в параметрах в state укажем = initialState
+// тоже самое проделать в todolistsReducer
 //
 //
 //
