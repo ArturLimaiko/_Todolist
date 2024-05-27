@@ -3,17 +3,25 @@ import {v1} from 'uuid'
 import {FilterValuesType, TaskStateType, TodoListType} from '../App'
 import {tasksReducer} from "./tasksReducer";
 
-//removeTodo
-test('correct todolist should be removed', () => {
-    let todolistId1 = v1()
-    let todolistId2 = v1()
 
-    // 1. Стартовый state
-    const startState: TodoListType[] = [
+let todolistId1: string
+let todolistId2: string
+let startState:TodoListType[]
+
+
+//используем для тестов , для определения блока кода который будет выполнен перед каждым тестом в наборе тестов
+beforeEach(() => {
+    todolistId1 = v1()
+    todolistId2 = v1()
+
+    startState = [
         {id: todolistId1, title: 'What to learn', filter: 'all'},
         {id: todolistId2, title: 'What to buy', filter: 'all'},
     ]
+})
 
+//removeTodo
+test('correct todolist should be removed', () => {
     // 2. Действие
     const action = {
         type: 'REMOVE-TODOLIST',
@@ -33,16 +41,8 @@ test('correct todolist should be removed', () => {
 
 //addtodo
 test('correct todolist should be added', () => {
-    let todolistId1 = v1()
-    let todolistId2 = v1()
-
     let todolistID = v1()
     let newTodolistTitle = 'New Todolist'
-
-    const startState: TodoListType[] = [
-        {id: todolistId1, title: 'What to learn', filter: 'all'},
-        {id: todolistId2, title: 'What to buy', filter: 'all'},
-    ]
 
     const action = {
         type: 'ADD-TODOLIST',
@@ -58,16 +58,8 @@ test('correct todolist should be added', () => {
 
 //тесты изменения title у todolist
 test('correct todolist should be change its name', () => {
-    let todolistId1 = v1()
-    let todolistId2 = v1()
-
     let todolistID = v1()
     let newTodolistTitle = 'New Todolist'
-
-    const startState: TodoListType[] = [
-        {id: todolistId1, title: 'What to learn', filter: 'all'},
-        {id: todolistId2, title: 'What to buy', filter: 'all'},
-    ]
 
     const action = {
         type: 'ADD-TODOLIST',
@@ -85,16 +77,8 @@ test('correct todolist should be change its name', () => {
 
 //изменение фильтров в todolists
 test('correct filter of todolist should be changed', () => {
-    let todolistId1 = v1()
-    let todolistId2 = v1()
-
     let todolistID = v1()
     let newFilter: FilterValuesType = 'completed'
-
-    const startState: TodoListType[] = [
-        {id: todolistId1, title: 'What to learn', filter: 'all'},
-        {id: todolistId2, title: 'What to buy', filter: 'completed'},
-    ]
 
     const action = {
         type: 'CHANGE-FILTER-TODO',
