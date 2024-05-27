@@ -6,7 +6,7 @@ import {tasksReducer} from "./tasksReducer";
 
 let todolistId1: string
 let todolistId2: string
-let startState:TodoListType[]
+let startState: TodoListType[]
 
 
 //используем для тестов , для определения блока кода который будет выполнен перед каждым тестом в наборе тестов
