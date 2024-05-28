@@ -2,7 +2,10 @@ import {TaskStateType} from "../AppWithReducers";
 // import {v1} from "uuid";
 import {addTodolistACType, RemoveTodolistACType} from "./TodoReducer";
 
-export const tasksReducer = (state: TaskStateType, action: tasksReducerType): TaskStateType => {
+//Для чего это не понял?
+export let initialTaskState: TaskStateType = {}
+
+export const tasksReducer = (state = initialTaskState, action: tasksReducerType): TaskStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             // копируем все таски {...tasks , потом взяли ключ [todolistID] , далее тут указываем какие именно таски - 1 или 2 tasks[todolistID1]
@@ -47,7 +50,7 @@ export const tasksReducer = (state: TaskStateType, action: tasksReducerType): Ta
             // })
             return {
                 ...state,
-                [action.todolistID]: state[action.todolistID].map(el => el.id === action.taskID? {
+                [action.todolistID]: state[action.todolistID].map(el => el.id === action.taskID ? {
                     ...el,
                     title: action.newTitle
                 } : el)
@@ -94,7 +97,7 @@ export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: 
 
 export type updateTaskTitleACType = ReturnType<typeof updateTaskTitleAC>
 export const updateTaskTitleAC = (todolistID: string, taskID: string, newTitle: string) => {
-    return {type: "UPDATE-TASK-TITLE", todolistID ,taskID ,newTitle} as const
+    return {type: "UPDATE-TASK-TITLE", todolistID, taskID, newTitle} as const
 }
 
 
