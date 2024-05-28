@@ -40,27 +40,19 @@ export const tasksReducer = (state: TaskStateType, action: tasksReducerType): Ta
             let {[action.todolistID]: aaa, ...rest} = state
             return rest
         }
-
-        case "CHANGE-TASK-TITLE": {
+        case 'UPDATE-TASK-TITLE': {
+            // setTasks({
+            //     ...tasks,
+            //     [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
+            // })
             return {
                 ...state,
-                [action.todolistID]: state[action.todolistID]
-                    .map(t => t.id === action.taskId ? {...t, title: action.title} : t)
+                [action.todolistID]: state[action.todolistID].map(el => el.id === action.taskID? {
+                    ...el,
+                    title: action.newTitle
+                } : el)
             }
         }
-        // case 'UPDATE-TASK-TITLE': {
-        //     // setTasks({
-        //     //     ...tasks,
-        //     //     [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
-        //     // })
-        //     return {
-        //         ...state,
-        //         [action.payload.todolistID]: state[action.payload.todolistID].map(el => el.id === action.payload.taskID ? {
-        //             ...el,
-        //             title: action.payload.newTitle
-        //         } : el)
-        //     }
-        // }
         default:
             return state
     }
@@ -101,8 +93,8 @@ export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: 
 }
 
 export type updateTaskTitleACType = ReturnType<typeof updateTaskTitleAC>
-export const updateTaskTitleAC = (taskId: string, title: string, todolistID: string) => {
-    return {type: "CHANGE-TASK-TITLE", taskId, title, todolistID} as const
+export const updateTaskTitleAC = (todolistID: string, taskID: string, newTitle: string) => {
+    return {type: "UPDATE-TASK-TITLE", todolistID ,taskID ,newTitle} as const
 }
 
 
