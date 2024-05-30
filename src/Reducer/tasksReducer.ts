@@ -2,7 +2,7 @@ import {TaskStateType} from "../AppWithRedux";
 // import {v1} from "uuid";
 import {addTodolistACType, RemoveTodolistACType} from "./TodoReducer";
 
-//Для чего это не понял?
+//значение по умолчанию
 export let initialTaskState: TaskStateType = {}
 
 export const tasksReducer = (state = initialTaskState, action: tasksReducerType): TaskStateType => {

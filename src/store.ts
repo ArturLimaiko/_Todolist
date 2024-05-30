@@ -4,7 +4,7 @@ import {combineReducers, legacy_createStore} from 'redux';
 
 // когда мы запускаем срабатывает combineReducers на основе всех объектов которые мы запишем создастся объект
 // который попадет в свойство state объекта store
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
     tasks: tasksReducer,
     todolists: todoReducer
 })

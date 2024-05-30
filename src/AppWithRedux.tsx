@@ -91,7 +91,6 @@ export function AppWithRedux() {
 
     //добавление todolist
     const addTodolist = (title: string) => {
-
         // создаем новый тудулист
         // const newTodo: TodoListType = {id: newTodoListId, title, filter: 'all'}
         // сетаем старый , и добавляем новый
@@ -124,7 +123,6 @@ export function AppWithRedux() {
                     {todolists.map(el => {
                         // //закинуть фильтрацию тасок в тодолист> , в tasks закидываем ключи из todolists по скольку они у них одни и теже
                         //let tasksForTodolist = tasks[el.id]
-
                         return (
                             <Grid item key={el.id}>
                                 <Paper elevation={8} style={{padding: '20px', backgroundColor: '#cdcdcd'}}>

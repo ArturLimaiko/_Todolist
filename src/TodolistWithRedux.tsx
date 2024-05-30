@@ -25,9 +25,6 @@ type PropsType = {
 export function TodolistWithRedux({todolist}: PropsType) {
 
     const {id,filter,title} = todolist
-
-    // let todolist = useSelector<AppRootStateType, TodoListType[]>(state => state.todolists)
-    // let filteredTodos = todolist.filter(todo => todo.id === props.todolistID)[0]
     let tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[id])
     let dispatch = useDispatch()
 
@@ -62,7 +59,6 @@ export function TodolistWithRedux({todolist}: PropsType) {
         dispatch (updateTodoListTitleAC(id,newTitle))
     }
 
-    //нужно перенести наверх перед ретурном
     // создадим тут функцию с помощью которой докинем два параметра todolistID: string, taskID: string
     const updateTaskTitleHandler = (tID: string, newTitle: string) => {
         dispatch(updateTaskTitleAC(id,tID,newTitle))
