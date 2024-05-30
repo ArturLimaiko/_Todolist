@@ -1,5 +1,5 @@
 import React from 'react';
-import {FilterValuesType} from './AppWithReducers';
+import {FilterValuesType, TodoListType} from './AppWithRedux';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from '@mui/material/IconButton';
@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import {SuperCheckboxApp} from "./Checkbox/SuperCheckbox";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
-import {TaskStateType, TodoListType} from "./AppWithRedux";
 import {addTaskAC, changeTaskStatusAC, removeTaskAC, updateTaskTitleAC} from "./Reducer/tasksReducer";
 import {changeFilterAC, removeTodolistAC, updateTodoListTitleAC} from "./Reducer/TodoReducer";
 
@@ -23,7 +22,7 @@ type PropsType = {
     todolist: TodoListType
 }
 
-export function Todolist({todolist}: PropsType) {
+export function TodolistWithRedux({todolist}: PropsType) {
 
     const {id,filter,title} = todolist
 
@@ -41,12 +40,12 @@ export function Todolist({todolist}: PropsType) {
     }
 
     //фукнция фильтрации тасок
-    const filterForTasks = (tasks: Array<TaskType>, filter: FilterValuesType) => {
+    const filterForTasks = (tasks: TaskType[], filter: FilterValuesType) => {
         if (filter === "active") {
-            return tasks.filter(t => !t.isDone);
+           tasks = tasks.filter(t => !t.isDone);
         }
         if (filter === "completed") {
-            return tasks.filter(t => t.isDone);
+            tasks = tasks.filter(t => t.isDone);
         }
         return tasks
     }

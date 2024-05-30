@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {TaskType, Todolist} from './Todolist';
+import {TaskType, TodolistWithRedux} from './TodolistWithRedux';
 import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
 import {ButtonAppButton} from "./ButtonAppBar/ButtonAppButton";
@@ -29,7 +29,9 @@ export function AppWithRedux() {
     // берем todolists = и сохраняем значение которое получится из этого хука
    // внутри у нас колбек (state =>  возвращает нам нужны тудулисты)
     let todolists = useSelector<AppRootStateType, TodoListType[]>(state => state.todolists)
-    let tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
+
+    //let tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
+
     // нам необходимо что бы наша компонента реагировала на наше телодвижение - воспользуемся методом let dispatch = useDispatch()
     const dispatch = useDispatch()
 
@@ -89,14 +91,15 @@ export function AppWithRedux() {
 
     //добавление todolist
     const addTodolist = (title: string) => {
-        // для начала генерим айдишки - именно тут потому что она должна быть ОБЩАЯ!
-        const newTodoListId = v1()
+
         // создаем новый тудулист
         // const newTodo: TodoListType = {id: newTodoListId, title, filter: 'all'}
         // сетаем старый , и добавляем новый
         // setTodolists([...todolists, newTodo])
         // сетаем объект старых тасок и обращаемся по ключу[newTodoListId]: ( айдишка в качестве свойства) и кладем новый пустой массив(значение)( тасок там нет т.к он новый) [newTodoListId]: []
         // setTasks({...tasks, [newTodoListId]: []})
+        // генерим айдишку - именно тут потому что она должна быть общая
+        const newTodoListId = v1()
         dispatch(addTodolistAC(title,newTodoListId))
     }
 
@@ -120,26 +123,13 @@ export function AppWithRedux() {
                 <Grid container spacing={5}>
                     {todolists.map(el => {
                         // //закинуть фильтрацию тасок в тодолист> , в tasks закидываем ключи из todolists по скольку они у них одни и теже
-                        let tasksForTodolist = tasks[el.id]
+                        //let tasksForTodolist = tasks[el.id]
 
                         return (
-                            <Grid item>
+                            <Grid item key={el.id}>
                                 <Paper elevation={8} style={{padding: '20px', backgroundColor: '#cdcdcd'}}>
-                                    <Todolist
-                                        //сюда передаем 9 параметров  key={el.id} его не надо прокидывать дальше т.к ключ указывается как атрибут по умолчанию (для виртуального DOM).
-                                        key={el.id}
-                                        todolistID={el.id}
-                                        title={el.title}
-                                        tasks={tasksForTodolist}
-                                        removeTask={removeTask}
-                                        changeFilter={changeFilter}
-                                        addTask={addTask}
-                                        changeTaskStatus={changeTaskStatus}
-                                        filter={el.filter}
-                                        removeTodolist={removeTodolist}
-                                        updateTaskTitle={updateTaskTitle}
-                                        updateTodoListTitle={updateTodoListTitle}
-                                    />
+                                    {/*//сюда передаем только 1 объект todolist={el}  key={el.id} его не надо прокидывать дальше т.к ключ указывается как атрибут по умолчанию (для виртуального DOM).*/}
+                                    <TodolistWithRedux todolist={el}/>
                                 </Paper>
                             </Grid>
                         )
