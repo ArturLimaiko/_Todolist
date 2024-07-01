@@ -1,5 +1,6 @@
 import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTaskTitleAC} from "./tasksReducer";
 import {TaskStateType} from "../AppWithRedux"
+import {addTodolistAC, removeTodolistAC} from "./TodoReducer";
 
 let startState: TaskStateType
 
@@ -17,9 +18,9 @@ beforeEach(() => {
         ]
     }
 })
-
+// Delete
 test('correct task should be deleted from correct array', () => {
-    const action = removeTaskAC('2', 'todolistId2')
+    const action = removeTaskAC('todolistId2', '2')
 
     const endState = tasksReducer(startState, action)
 
@@ -36,6 +37,7 @@ test('correct task should be deleted from correct array', () => {
     })
 })
 
+// Add
 test('correct task should be added to correct array', () => {
     const action = addTaskAC('todolistId2', 'juce')
 
@@ -48,21 +50,37 @@ test('correct task should be added to correct array', () => {
     expect(endState['todolistId2'][0].isDone).toBe(false)
 })
 
+// Change Task Status
 test('status of specified task should be changed', () => {
     const action = changeTaskStatusAC('2', false, 'todolistId2')
 
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].isDone).toBe(false)
+    expect(endState['todolistId2'][1].isDone).toBeFalsy()
     expect(endState['todolistId1'][1].isDone).toBe(true)
 })
 
+// Update Task Title
 test('title of specified task should be changed', () => {
-    const action = updateTaskTitleAC('2', 'Chocolate', 'todolistId2')
+    const action = updateTaskTitleAC('todolistId2', '2', 'Chocolate')
 
     //попадет объект {} и у него будет 1 свойство
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].title).toBe('Chocolate')
     expect(endState['todolistId1'][1].title).toBe('JS')
+})
+
+//Delete TodoList
+test('property with todolistID should be deleted', () => {
+    const action = removeTodolistAC('todolistId2')
+
+
+    const endState = tasksReducer(startState, action)
+
+    const keys = Object.keys(endState)
+
+    expect(keys.length).toBe(1)
+    expect(endState['todolistId2']).not.toBeDefined()
 })
