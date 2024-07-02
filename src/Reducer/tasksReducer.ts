@@ -33,7 +33,7 @@ export const tasksReducer = (state = initialTaskState, action: tasksReducerType)
                     .map(el => el.id === action.taskId ? {...el, isDone: action.isDone} : el)
             }
         }
-        case 'UPDATE-TASK-TITLE': {
+        case 'CHANGE-TASK-TITLE': {
             // setTasks({
             //     ...tasks,
             //     [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
@@ -101,7 +101,7 @@ export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: 
 //UPDATE TASK TITLE
 export type updateTaskTitleACType = ReturnType<typeof updateTaskTitleAC>
 export const updateTaskTitleAC = (todolistID: string, taskID: string, newTitle: string) => {
-    return {type: "UPDATE-TASK-TITLE", todolistID, taskID, newTitle} as const
+    return {type: "CHANGE-TASK-TITLE", todolistID, taskID, newTitle} as const
 }
 
 
