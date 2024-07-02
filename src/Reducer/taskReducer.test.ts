@@ -84,3 +84,20 @@ test('property with todolistID should be deleted', () => {
     expect(keys.length).toBe(1)
     expect(endState['todolistId2']).not.toBeDefined()
 })
+
+// Add Todolist
+test('new array should be added when new todolist is added', () => {
+
+    const action = addTodolistAC('new todolist', 'todolistId3')
+
+    const endState = tasksReducer(startState, action);
+
+    const keys = Object.keys(endState)
+    const newKey = keys.find(k => k != 'todolistId1' && k != 'todolistId2');
+    if (!newKey) {
+        throw Error('new key should be added')
+    }
+
+    expect(keys.length).toBe(3);
+    expect(endState[newKey]).toEqual([]);
+})

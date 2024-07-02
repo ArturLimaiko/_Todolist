@@ -94,7 +94,7 @@ test('correct filter of todolist should be changed', () => {
 
 })
 
-//
+// Add Todolist
 test('new array should be added when new todolist is added', () => {
     const startState: TaskStateType = {
         'todolistId1': [
