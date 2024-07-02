@@ -6,7 +6,7 @@ export let initialTodoState:TodoListType[] = []
 export const todoReducer = (state = initialTodoState, action: TodoReducerType): TodoListType[] => {
     switch (action.type) {
         case 'REMOVE-TODO': {
-            // //сетаем - берем все тудулисты, фитром проходимся , и оставляем всех кроме того на котором нажали удалить
+            // сетаем - берем все тудулисты, фитром проходимся , и оставляем всех кроме того на котором нажали удалить
             // setTodolists(todolists.filter(el => el.id !== todolistID))
             // delete tasks[todolistID]
             return state.filter(el => el.id !== action.todolistID)

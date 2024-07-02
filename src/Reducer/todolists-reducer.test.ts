@@ -1,7 +1,7 @@
 import {addTodolistAC, changeFilterAC, removeTodolistAC, todoReducer, updateTodoListTitleAC} from './TodoReducer'
 import {v1} from 'uuid'
 import {FilterValuesType, TaskStateType, TodoListType} from '../AppWithRedux'
-import {tasksReducer} from "./tasksReducer";
+import {removeTaskAC, tasksReducer} from "./tasksReducer";
 
 
 let todolistId1: string

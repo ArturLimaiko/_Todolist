@@ -55,6 +55,8 @@ export const tasksReducer = (state = initialTaskState, action: tasksReducerType)
             // delete copyState[action.todolistID]
             // return copyState
             //деструктурируем
+            //в старом стейте остается ключ, но с пустым массивом
+            // а в новый стейт мы возвращаем все остальное кроме этого ключа с пустым массивом
             let {[action.todolistID]: aaa, ...rest} = state
             return rest
         }
