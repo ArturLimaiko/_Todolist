@@ -2,8 +2,11 @@ import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTaskTit
 import {TaskStateType} from "../AppWithRedux"
 import {addTodolistAC, removeTodolistAC} from "./TodoReducer";
 
+
+// Объявим переменную и ниже в beforeEach перед каждым тестом инициализируем ее
 let startState: TaskStateType
 
+// Стартовые данные используем для тестов , для определения блока кода который будет выполнен перед каждым тестом в наборе тестов
 beforeEach(() => {
     startState = {
         'todolistId1': [

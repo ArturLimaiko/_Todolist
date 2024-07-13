@@ -3,7 +3,7 @@ import {v1} from 'uuid'
 import {FilterValuesType, TaskStateType, TodoListType} from '../AppWithRedux'
 import {removeTaskAC, tasksReducer} from "./tasksReducer";
 
-
+//объявляем переменные и ниже в beforeEach перед каждым тестом инициализируем, тогда они будут видны
 let todolistId1: string
 let todolistId2: string
 let startState: TodoListType[]
@@ -11,6 +11,7 @@ let startState: TodoListType[]
 
 //используем для тестов , для определения блока кода который будет выполнен перед каждым тестом в наборе тестов
 beforeEach(() => {
+    // в каждом тесте будет разная айдишка так как генерим через v1
     todolistId1 = v1()
     todolistId2 = v1()
 

@@ -13,8 +13,10 @@ export const tasksReducer = (state = initialTaskState, action: tasksReducerType)
             // setTasks({...tasks, [todolistID]: tasks[todolistID].filter(t => t.id !== taskID)})
             // let filteredTasks = tasks.filter(t => t.id != id);
             // setTasks(filteredTasks);
-            return {...state, [action.todolistID]: state[action.todolistID]
-                    .filter(t => t.id !== action.taskID)}
+            return {
+                ...state, [action.todolistID]: state[action.todolistID]
+                    .filter(t => t.id !== action.taskID)
+            }
         }
         case 'ADD-TASK': {
             // //сетаем таски - копируем массив с тасками ...tasks, далее обращаемся к ключу [todolistID] - кладем туда копию массива [...tasks[todolistID] и добавляем туда newTask
